@@ -33,9 +33,8 @@ $ ls /dir/path/d1
 A.png   B.png   C.png
 
 $ java -jar dimg.jar -f1 /dir/path/d1/A.png -f2 /dir/path/d1/B.png
-
-f1: /dir/path/d1/A.png
-f2: /dir/path/d1/B.png
+$1: /dir/path/d1/A.png
+$2: /dir/path/d1/B.png
 Match ratio: 0.5
 ```
 
@@ -49,13 +48,12 @@ $ ls /dir/path/d2
 A.png   C.png
 
 $ java -jar dimg.jar -d1 /dir/path/d1 -d2 /dir/path/d2
-
-f1: /dir/path/d1/A.png
-f2: /dir/path/d2/A.png
+$1: /dir/path/d1/A.png
+$2: /dir/path/d2/A.png
 Match ratio: 0.5
 
-f1: /dir/path/d1/C.png
-f2: /dir/path/d2/C.png
+$1: /dir/path/d1/C.png
+$2: /dir/path/d2/C.png
 Match ratio: 1.0
 ```
 
@@ -68,9 +66,8 @@ $ ls /dir/path/d1
 A.png   B.png   C.png
 
 $ ./mvnw clean spring-boot:run -U -Drun.arguments=-f1,/dir/path/d1/A.png,-f2,/dir/path/d1/B.png
-
-f1: /dir/path/d1/A.png
-f2: /dir/path/d1/B.png
+$1: /dir/path/d1/A.png
+$2: /dir/path/d1/B.png
 Match ratio: 0.5
 ```
 
@@ -84,13 +81,12 @@ $ ls /dir/path/d2
 A.png   C.png
 
 $ ./mvnw clean spring-boot:run -U -Drun.arguments=-d1,/dir/path/d1,-d2,/dir/path/d2
-
-f1: /dir/path/d1/A.png
-f2: /dir/path/d2/A.png
+$1: /dir/path/d1/A.png
+$2: /dir/path/d2/A.png
 Match ratio: 0.5
 
-f1: /dir/path/d1/C.png
-f2: /dir/path/d2/C.png
+$1: /dir/path/d1/C.png
+$2: /dir/path/d2/C.png
 Match ratio: 1.0
 ```
 
