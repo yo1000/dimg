@@ -1,7 +1,7 @@
 package com.yo1000.dimg.service
 
 import com.yo1000.dimg.util.ImageComparator
-import com.yo1000.dimg.util.ImageDecoder
+import com.yo1000.dimg.util.Decoder
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -15,11 +15,11 @@ import java.nio.file.attribute.BasicFileAttributes
  */
 @Service
 class ImageDifferenceService(
-        private val imageDecoder: ImageDecoder,
+        private val decoder: Decoder,
         private val imageComparator: ImageComparator) {
     fun compareBinaries(input1: String, input2: String, base64: Boolean): Double {
-        ByteArrayInputStream(imageDecoder.decode(input1, base64)).use { input1 ->
-            ByteArrayInputStream(imageDecoder.decode(input2, base64)).use { input2 ->
+        ByteArrayInputStream(decoder.decode(input1, base64)).use { input1 ->
+            ByteArrayInputStream(decoder.decode(input2, base64)).use { input2 ->
                 return imageComparator.matchRatio(input1, input2)
             }
         }
@@ -31,8 +31,8 @@ class ImageDifferenceService(
 
     fun compareBinaries(input1: String, input2: String, base64: Boolean, output: File): Double {
         checkOutputFile(output)
-        ByteArrayInputStream(imageDecoder.decode(input1, base64)).use { input1 ->
-            ByteArrayInputStream(imageDecoder.decode(input2, base64)).use { input2 ->
+        ByteArrayInputStream(decoder.decode(input1, base64)).use { input1 ->
+            ByteArrayInputStream(decoder.decode(input2, base64)).use { input2 ->
                 return imageComparator.matchRatioAndOutput(input1, input2, output)
             }
         }

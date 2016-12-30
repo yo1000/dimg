@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
  * @author yo1000
  */
 @Component
-class ImageDecoder {
+class Decoder {
     fun decode(code: String, base64: Boolean): ByteArray {
         if (base64) {
             return decodeFromBase64(code)
