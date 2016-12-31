@@ -35,7 +35,7 @@ A.png   B.png   C.png
 $ java -jar dimg.jar -f1 /dir/path/d1/A.png -f2 /dir/path/d1/B.png
 $1: /dir/path/d1/A.png
 $2: /dir/path/d1/B.png
-Match ratio: 0.5
+Diff ratio: 0.5
 ```
 
 Compare directories.
@@ -50,11 +50,11 @@ A.png   C.png
 $ java -jar dimg.jar -d1 /dir/path/d1 -d2 /dir/path/d2
 $1: /dir/path/d1/A.png
 $2: /dir/path/d2/A.png
-Match ratio: 0.5
+Diff ratio: 0.5
 
 $1: /dir/path/d1/C.png
 $2: /dir/path/d2/C.png
-Match ratio: 1.0
+Diff ratio: 1.0
 ```
 
 ### Run from Maven using sources
@@ -68,7 +68,7 @@ A.png   B.png   C.png
 $ ./mvnw clean spring-boot:run -U -Drun.arguments=-f1,/dir/path/d1/A.png,-f2,/dir/path/d1/B.png
 $1: /dir/path/d1/A.png
 $2: /dir/path/d1/B.png
-Match ratio: 0.5
+Diff ratio: 0.5
 ```
 
 Compare directories.
@@ -83,11 +83,11 @@ A.png   C.png
 $ ./mvnw clean spring-boot:run -U -Drun.arguments=-d1,/dir/path/d1,-d2,/dir/path/d2
 $1: /dir/path/d1/A.png
 $2: /dir/path/d2/A.png
-Match ratio: 0.5
+Diff ratio: 0.5
 
 $1: /dir/path/d1/C.png
 $2: /dir/path/d2/C.png
-Match ratio: 1.0
+Diff ratio: 1.0
 ```
 
 ## Dependencies

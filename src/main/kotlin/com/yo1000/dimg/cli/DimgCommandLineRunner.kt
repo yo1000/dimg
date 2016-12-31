@@ -112,11 +112,11 @@ dimg [-b64 | -f1 <imageFile1> -f2 <imageFile2> |
         if (suppress) {
             LOGGER.info("$1: $f1")
             LOGGER.info("$2: $f2")
-            LOGGER.info("Match ratio: $ratio")
+            LOGGER.info("Diff ratio: $ratio")
         } else {
             println("$1: $f1")
             println("$2: $f2")
-            println("Match ratio: $ratio")
+            println("Diff ratio: $ratio")
         }
     }
 }
