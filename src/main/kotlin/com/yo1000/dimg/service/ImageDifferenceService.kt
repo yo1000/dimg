@@ -1,11 +1,12 @@
 package com.yo1000.dimg.service
 
-import com.yo1000.dimg.util.ImageComparator
 import com.yo1000.dimg.util.Decoder
+import com.yo1000.dimg.util.ImageComparator
 import org.springframework.stereotype.Service
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.io.FileNotFoundException
+import java.math.BigDecimal
 import java.nio.file.*
 import java.nio.file.attribute.BasicFileAttributes
 
@@ -17,7 +18,7 @@ import java.nio.file.attribute.BasicFileAttributes
 class ImageDifferenceService(
         private val decoder: Decoder,
         private val imageComparator: ImageComparator) {
-    fun compareBinaries(input1: String, input2: String, base64: Boolean): Double {
+    fun compareBinaries(input1: String, input2: String, base64: Boolean): BigDecimal {
         ByteArrayInputStream(decoder.decode(input1, base64)).use { input1 ->
             ByteArrayInputStream(decoder.decode(input2, base64)).use { input2 ->
                 return imageComparator.matchRatio(input1, input2)
@@ -25,11 +26,11 @@ class ImageDifferenceService(
         }
     }
 
-    fun compareBinaries(input1: String, input2: String, base64: Boolean, output: String): Double {
+    fun compareBinaries(input1: String, input2: String, base64: Boolean, output: String): BigDecimal {
         return compareBinaries(input1, input2, base64, File(output))
     }
 
-    fun compareBinaries(input1: String, input2: String, base64: Boolean, output: File): Double {
+    fun compareBinaries(input1: String, input2: String, base64: Boolean, output: File): BigDecimal {
         checkOutputFile(output)
         ByteArrayInputStream(decoder.decode(input1, base64)).use { input1 ->
             ByteArrayInputStream(decoder.decode(input2, base64)).use { input2 ->
@@ -63,20 +64,20 @@ class ImageDifferenceService(
         })
     }
 
-    fun compareFiles(input1: String, input2: String): Double {
+    fun compareFiles(input1: String, input2: String): BigDecimal {
         return compareFiles(File(input1), File(input2))
     }
 
-    fun compareFiles(input1: String, input2: String, output: String): Double {
+    fun compareFiles(input1: String, input2: String, output: String): BigDecimal {
         return compareFiles(File(input1), File(input2), File(output))
     }
 
-    fun compareFiles(input1: File, input2: File): Double {
+    fun compareFiles(input1: File, input2: File): BigDecimal {
         checkInputFiles(input1, input2)
         return imageComparator.matchRatio(input1, input2)
     }
 
-    fun compareFiles(input1: File, input2: File, output: File): Double {
+    fun compareFiles(input1: File, input2: File, output: File): BigDecimal {
         checkInputFiles(input1, input2)
         checkOutputFile(output)
         return imageComparator.matchRatioAndOutput(input1, input2, output)

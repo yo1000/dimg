@@ -107,7 +107,7 @@ dimg [-b64 | -f1 <imageFile1> -f2 <imageFile2> |
         }
     }
 
-    protected fun printMatchRatio(f1: String, f2: String, ratio: Double, suppress: Boolean) {
+    protected fun printMatchRatio(f1: String, f2: String, ratio: Number, suppress: Boolean) {
         if (suppress) {
             LOGGER.info("$1: $f1")
             LOGGER.info("$2: $f2")

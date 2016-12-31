@@ -6,6 +6,7 @@ import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.InputStream
+import java.math.BigDecimal
 import javax.imageio.ImageIO
 
 /**
@@ -14,23 +15,23 @@ import javax.imageio.ImageIO
  */
 @Component
 class ImageComparator() {
-    fun matchRatioAndOutput(in1: File, in2: File, out: File): Double {
+    fun matchRatioAndOutput(in1: File, in2: File, out: File): BigDecimal {
         val diff = diff(ImageIO.read(in1), ImageIO.read(in2))
         ImageIO.write(diff, "png", out)
         return matchRatio(diff)
     }
 
-    fun matchRatioAndOutput(input1: InputStream, input2: InputStream, out: File): Double {
+    fun matchRatioAndOutput(input1: InputStream, input2: InputStream, out: File): BigDecimal {
         val diff = diff(ImageIO.read(input1), ImageIO.read(input2))
         ImageIO.write(diff, "png", out)
         return matchRatio(diff)
     }
 
-    fun matchRatio(input1: InputStream, input2: InputStream): Double {
+    fun matchRatio(input1: InputStream, input2: InputStream): BigDecimal {
         return matchRatio(diff(ImageIO.read(input1), ImageIO.read(input2)))
     }
 
-    fun matchRatio(in1: File, in2: File): Double {
+    fun matchRatio(in1: File, in2: File): BigDecimal {
         return matchRatio(diff(ImageIO.read(in1), ImageIO.read(in2)))
     }
 
@@ -49,7 +50,7 @@ class ImageComparator() {
         return image
     }
 
-    protected fun matchRatio(image: BufferedImage): Double {
+    protected fun matchRatio(image: BufferedImage): BigDecimal {
         var notBlackCount: Int = 0
 
         (0..image.height - 1).forEach { y ->
@@ -58,6 +59,6 @@ class ImageComparator() {
                     .size
         }
 
-        return notBlackCount.toDouble() / (image.width * image.height).toDouble()
+        return BigDecimal(notBlackCount).divide(BigDecimal(image.width * image.height), 32, 0)
     }
 }
