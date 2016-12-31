@@ -49,14 +49,13 @@ dimg [-b64 | -f1 <imageFile1> -f2 <imageFile2> |
             throw IllegalArgumentException("When using `s` option, must use with `o` option.")
         }
 
-        val stdin = System.`in`.bufferedReader(Charset.defaultCharset())
-                .lines()
-                .collect(Collectors.joining())
-
-        if (stdin.isNotEmpty() &&
+        if (System.console() == null &&
                 !cl.hasOption("f1") && !cl.hasOption("f2") &&
                 !cl.hasOption("d1") && !cl.hasOption("d2")) {
-            val blocks = stdin.split(Regex("\\s+"))
+            val blocks = System.`in`.bufferedReader(Charset.defaultCharset())
+                    .lines()
+                    .collect(Collectors.joining())
+                    .split(Regex("\\s+"))
 
             if (blocks.size != 2) {
                 throw IllegalArgumentException("Standard input requires 2 blocks separated by white space.")
