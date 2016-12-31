@@ -8,9 +8,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
-import java.io.BufferedReader
 import java.io.File
-import java.io.InputStreamReader
 import java.nio.charset.Charset
 import java.util.stream.Collectors
 
@@ -47,19 +45,18 @@ dimg [-b64 | -f1 <imageFile1> -f2 <imageFile2> |
                     options)
         }
 
-        val stdin = System.`in`
-
         if (cl.hasOption("s") && !cl.hasOption("o")) {
             throw IllegalArgumentException("When using `s` option, must use with `o` option.")
         }
 
-        if (stdin.available() != 0 &&
+        val stdin = System.`in`.bufferedReader(Charset.defaultCharset())
+                .lines()
+                .collect(Collectors.joining())
+
+        if (stdin.isNotEmpty() &&
                 !cl.hasOption("f1") && !cl.hasOption("f2") &&
                 !cl.hasOption("d1") && !cl.hasOption("d2")) {
-            val blocks = BufferedReader(InputStreamReader(stdin, Charset.defaultCharset()))
-                    .lines()
-                    .collect(Collectors.joining())
-                    .split("\\s+")
+            val blocks = stdin.split(Regex("\\s+"))
 
             if (blocks.size != 2) {
                 throw IllegalArgumentException("Standard input requires 2 blocks separated by white space.")
